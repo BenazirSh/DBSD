@@ -14,7 +14,7 @@ namespace PharmacyStoreDb.DAL
 
         private string ConnectionStr
         {
-            get { return WebConfigurationManager.ConnectionStrings["PharmacyStr"].ConnectionString;  }
+            get { return WebConfigurationManager.ConnectionStrings["PharmacyDb"].ConnectionString;  }
         }
         public IList<Product> GetAll()
         {
@@ -33,8 +33,7 @@ namespace PharmacyStoreDb.DAL
                                     [Volume],
                                     [ProductType], 
                                     [price]
-                                    FROM [PharmacyStoreDb]
-                            ";
+                                    FROM [PharmacyStoreDb]";
 
                     conn.Open();
                     using (var rdr = cmd.ExecuteReader())
@@ -55,11 +54,6 @@ namespace PharmacyStoreDb.DAL
                             product.price = rdr.GetString(rdr.GetOrdinal("price"));
 
                             Products.Add(product);
-
-
-
-
-
                         }
                     }
 
