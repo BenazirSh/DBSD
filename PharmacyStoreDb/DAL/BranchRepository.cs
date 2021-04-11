@@ -13,9 +13,19 @@ namespace PharmacyStoreDb.DAL
             throw new NotImplementedException();
         }
 
-        public void Insert(Branch t)
+		public Branch GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Branch t)
         {
             throw new NotImplementedException();
         }
-    }
+
+		public void Update(Branch t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

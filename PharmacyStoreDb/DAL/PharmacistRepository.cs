@@ -13,9 +13,19 @@ namespace PharmacyStoreDb.DAL
             throw new NotImplementedException();
         }
 
-        public void Insert(Pharmacist t)
+		public Pharmacist GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Pharmacist t)
         {
             throw new NotImplementedException();
         }
-    }
+
+		public void Update(Pharmacist t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
