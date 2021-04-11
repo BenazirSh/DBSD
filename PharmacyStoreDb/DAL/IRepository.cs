@@ -11,7 +11,7 @@ namespace PharmacyStoreDb.DAL
     {
         IList<T> GetAll();
         void Insert(T t);
-        T GetById(int id);//??
+        T GetById(int id);
         void Update(T t);
 
 

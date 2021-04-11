@@ -29,7 +29,10 @@ namespace PharmacyStoreDb.Models
 
         [DisplayName("Product Type")]
         public ProductType ProductType { get; set; }
+
+        [DisplayName("Price")]
         public string price { get; set; }
+
 
 
 
