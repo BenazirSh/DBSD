@@ -23,17 +23,17 @@ namespace PharmacyStoreDb.DAL
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [ProductId], 
-                                    [ProductName], 
-                                    [ReleaseForm], 
-                                    [ProductionDate], 
-                                    [StoreCondition], 
-                                    [Manufacturer], 
-                                    [ExpiryDate],
-                                    [Volume],
-                                    [ProductType], 
-                                    [price]
-                                    FROM [PharmacyStoreDb]";
+                    cmd.CommandText = @"SELECT [product_id]
+                                    ,[product_name]  	
+                                    ,[release_form] 	
+                                    ,[production_date] 
+                                    ,[store_condition] 
+                                    ,[manufacturer] 	
+                                    ,[expiration_date]
+                                    ,[volume] 		
+                                    ,[product_type]   
+                                    ,[price]  
+                                    FROM [product]";
 
                     conn.Open();
                     using (var rdr = cmd.ExecuteReader())
@@ -71,19 +71,18 @@ namespace PharmacyStoreDb.DAL
             {
                 using (var cmd = conn.CreateCommand())
 				{ 
-                    cmd.CommandText = @"SELECT [ProductId], 
-                                    [ProductName], 
-                                    [ReleaseForm], 
-                                    [ProductionDate], 
-                                    [StoreCondition], 
-                                    [Manufacturer], 
-                                    [ExpiryDate],
-                                    [Volume],
-                                    [ProductType], 
-                                    [price]
-                                    FROM [PharmacyStoreDb]
-                                    WHERE [ProductId] = @ProductId 
-                                    ";
+                    cmd.CommandText = @"SELECT [product_id], 
+                                    ,[product_name]  	
+                                    ,[release_form] 	
+                                    ,[production_date] 
+                                    ,[store_condition] 
+                                    ,[manufacturer] 	
+                                    ,[expiration_date]
+                                    ,[volume] 		
+                                    ,[product_type]   
+                                    ,[price]  
+                                    FROM [product]
+                                    WHERE [product_id] = @ProductId";
                     cmd.Parameters.AddWithValue("@ProductId", id);
 
                     conn.Open();
@@ -93,15 +92,15 @@ namespace PharmacyStoreDb.DAL
 						{
                             product = new Product()
                             {
-                                ProductName    =reader.GetString(reader.GetOrdinal("ProductName")),
-                                ReleaseForm    =reader.GetString(reader.GetOrdinal("ReleaseForm")),
-                                ProductionDate =reader.GetDateTime(reader.GetOrdinal("ProductionDate")),
-                                StoreCondition =reader.GetString(reader.GetOrdinal("StoreCondition ")),
-                                Manufacturer   =reader.GetString(reader.GetOrdinal("Manufacturer")),
-                                ExpiryDate     =reader.GetDateTime(reader.GetOrdinal("ExpiryDate ")),
-                                Volume         =reader.GetString(reader.GetOrdinal("Volume")),
-                                ProductType    =(ProductType)reader.GetInt32(reader.GetOrdinal("ProductType")),
-                                price          =reader.GetString(reader.GetOrdinal("price")),
+                                ProductName    =reader.GetString(reader.GetOrdinal("product_name")),
+                                ReleaseForm    =reader.GetString(reader.GetOrdinal("release_form")),
+                                ProductionDate =reader.GetDateTime(reader.GetOrdinal("production_date")),
+                                StoreCondition =reader.GetString(reader.GetOrdinal("store_condition")),
+                                Manufacturer   =reader.GetString(reader.GetOrdinal("manufacturer")),
+                                ExpiryDate     =reader.GetDateTime(reader.GetOrdinal("expiration_date ")),
+                                Volume         =reader.GetString(reader.GetOrdinal("volume")),
+                                ProductType    =(ProductType)reader.GetInt32(reader.GetOrdinal("product_type")),
+                                price          =reader.GetString(reader.GetOrdinal("price"))
                             };
 						}
 					}
@@ -117,7 +116,7 @@ namespace PharmacyStoreDb.DAL
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Product(
+                    cmd.CommandText = @"INSERT INTO [dbo].[product](
                                       SET [product_name]  	
                                          ,[release_form] 	
                                          ,[production_date]

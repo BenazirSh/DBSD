@@ -21,10 +21,12 @@ namespace PharmacyStoreDb.Models
 
         [DisplayName("Store Condition")]
         public string StoreCondition { get; set; }
+
         public string Manufacturer { get; set; }
 
         [DisplayName("Expiry Date")]
         public DateTime ExpiryDate { get; set; }
+
         public string Volume { get; set; }
 
         [DisplayName("Product Type")]

@@ -7,7 +7,6 @@ namespace PharmacyStoreDb.Models
 {
     public class Branch
     {
-
         public int BranchId { get; set; }
         public string BranchName { get; set; }
 
@@ -15,6 +14,5 @@ namespace PharmacyStoreDb.Models
         public Manager Manager { get; set; }
 
         public Cleaner Cleaner { get; set; }
-
     }
 }
