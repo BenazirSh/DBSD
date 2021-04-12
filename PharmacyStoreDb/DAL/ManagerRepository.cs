@@ -57,7 +57,12 @@ namespace PharmacyStoreDb.DAL
             return Managers;
         }
 
-        public void Insert(Manager t)
+		public Manager GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Manager t)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
@@ -125,5 +130,10 @@ namespace PharmacyStoreDb.DAL
             }
 
         }
-    }
+
+		public void Update(Manager t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -51,7 +51,12 @@ namespace PharmacyStoreDb.DAL
             return Operations;
         }
 
-        public void Insert(Operation t)
+		public Operation GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Operation t)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
@@ -105,5 +110,10 @@ namespace PharmacyStoreDb.DAL
             }
 
         }
-    }
+
+		public void Update(Operation t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -51,7 +51,12 @@ namespace PharmacyStoreDb.DAL
             return Cleaners;
         }
 
-        public void Insert(Cleaner t)
+		public Cleaner GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Cleaner t)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
@@ -115,5 +120,10 @@ namespace PharmacyStoreDb.DAL
             }
 
         }
-    }
+
+		public void Update(Cleaner t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

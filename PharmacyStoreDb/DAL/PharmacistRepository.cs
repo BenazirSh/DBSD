@@ -38,8 +38,8 @@ namespace PharmacyStoreDb.DAL
                             pharmacist.DoB = rdr.GetDateTime(rdr.GetOrdinal("dob"));
                             pharmacist.Salary = rdr.GetString(rdr.GetOrdinal("salary"));
                             pharmacist.EducationLevel = rdr.GetString(rdr.GetOrdinal("education_level"));
-                           // pharmacist.Manager = rdr.GetString(rdr.GetOrdinal("manager_id"));
-                          //  pharmacist.Branch = rdr.GetString(rdr.GetOrdinal("Volume"));
+                          //pharmacist.Manager = rdr.GetString(rdr.GetOrdinal("manager_id"));
+                          //pharmacist.Branch = rdr.GetString(rdr.GetOrdinal("Volume"));
 
 
                             Pharmacists.Add(pharmacist);
@@ -58,7 +58,12 @@ namespace PharmacyStoreDb.DAL
             return Pharmacists;
         }
 
-        public void Insert(Pharmacist t)
+		public Pharmacist GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Pharmacist t)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
@@ -132,5 +137,10 @@ namespace PharmacyStoreDb.DAL
             }
 
         }
-    }
+
+		public void Update(Pharmacist t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

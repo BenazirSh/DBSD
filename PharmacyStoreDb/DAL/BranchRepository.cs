@@ -58,7 +58,12 @@ namespace PharmacyStoreDb.DAL
             return Branches;
         }
 
-        public void Insert(Branch t)
+		public Branch GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Insert(Branch t)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
@@ -120,5 +125,10 @@ namespace PharmacyStoreDb.DAL
             }
 
         }
-    }
+
+		public void Update(Branch t)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

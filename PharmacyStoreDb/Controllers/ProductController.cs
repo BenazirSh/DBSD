@@ -46,25 +46,29 @@ namespace PharmacyStoreDb.Controllers
                 return View();
             }
         }
-
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var repo = new ProductRepository();
+            var emp = repo.GetById(id);
+            return View(emp);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Product t)
         {
+            var repo = new ProductRepository();
             try
             {
+                repo.Update(t);
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }

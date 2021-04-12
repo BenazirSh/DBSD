@@ -15,7 +15,7 @@ namespace PharmacyStoreDb.DAL
 
         private string ConnectionStr
         {
-            get { return WebConfigurationManager.ConnectionStrings["PharmacyStr"].ConnectionString;  }
+            get { return WebConfigurationManager.ConnectionStrings["PharmacyDb"].ConnectionString;  }
         }
         public IList<Product> GetAll()
         {
@@ -68,6 +68,51 @@ namespace PharmacyStoreDb.DAL
 
             return Products;
         }
+        public Product GetById(int id)
+        {
+            Product product = null;
+            using (var conn = new SqlConnection(ConnectionStr))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT 
+                                    [product_name]  	
+                                    ,[release_form] 	
+                                    ,[production_date] 
+                                    ,[store_condition] 
+                                    ,[manufacturer] 	
+                                    ,[expiration_date]
+                                    ,[volume] 		
+                                    ,[product_type]   
+                                    ,[price]  
+                                    FROM [product]
+                                    WHERE [product_id] = @ProductId";
+                    cmd.Parameters.AddWithValue("@ProductId", id);
+
+                    conn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            product = new Product()
+                            {
+                                ProductName = reader.GetString(reader.GetOrdinal("product_name")),
+                                ReleaseForm = reader.GetString(reader.GetOrdinal("release_form")),
+                                ProductionDate = reader.GetDateTime(reader.GetOrdinal("production_date")),
+                                StoreCondition = reader.GetString(reader.GetOrdinal("store_condition")),
+                                Manufacturer = reader.GetString(reader.GetOrdinal("manufacturer")),
+                                ExpiryDate = reader.GetDateTime(reader.GetOrdinal("expiration_date ")),
+                                Volume = reader.GetString(reader.GetOrdinal("volume")),
+                                ProductType = (ProductType)reader.GetInt32(reader.GetOrdinal("product_type")),
+                                price = reader.GetString(reader.GetOrdinal("price"))
+                            };
+                        }
+                    }
+
+                }
+            }
+            return product;
+        }
 
         public void Insert(Product t)
         {
@@ -76,20 +121,24 @@ namespace PharmacyStoreDb.DAL
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO product(
-                                    [ProductName], 
-                                    [ReleaseForm], 
-                                    [ProductionDate], 
-                                    [StoreCondition], 
-                                    [Manufacturer], 
-                                    [ExpiryDate],
-                                    [Volume],
-                                    [ProductType], 
-                                    [price]) VALUES (
+                                    [product_name]  	
+                                    ,[release_form] 	
+                                    ,[production_date] 
+                                    ,[store_condition] 
+                                    ,[manufacturer] 	
+                                    ,[expiration_date]
+                                    ,[volume] 		
+                                    ,[product_type]   
+                                    ,[price] ) VALUES(
                                @ProductName,
                                @ReleaseForm,
                                @ProductionDate,
                                @StoreCondition,         
-                               @Manufacturer, @ExpiryDate, @Volume,   @ProductType, @price
+                               @Manufacturer, 
+                               @ExpiryDate,
+                               @Volume,   
+                               @ProductType, 
+                               @price
 
                             )"; 
 
@@ -162,6 +211,40 @@ namespace PharmacyStoreDb.DAL
                 }
             }
 
+        }
+        public void Update(Product t)
+        {
+            using (var conn = new SqlConnection(ConnectionStr))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE [dbo].[product]
+                                   SET [product_name]  	 =@ProductName  
+                                      ,[release_form] 	 =@ReleaseForm 
+                                      ,[production_date] =@ProductionDate
+                                      ,[store_condition] =@StoreCondition
+                                      ,[manufacturer] 	 =@Manufacturer
+                                      ,[expiration_date] =@ExpirationDate
+                                      ,[volume] 		 =@Volume 
+                                      ,[product_type]    =@ProductType
+                                      ,[price] 			 =@price      
+                                 WHERE product_id =@ProductId";
+                    cmd.Parameters.AddWithValue("@ProductName", t.ProductName);
+                    cmd.Parameters.AddWithValue("@ReleaseForm ", t.ReleaseForm);
+                    cmd.Parameters.AddWithValue("@ProductionDate", t.ProductionDate);
+                    cmd.Parameters.AddWithValue("@StoreCondition", t.StoreCondition);
+                    cmd.Parameters.AddWithValue("@Manufacturer", t.Manufacturer);
+                    cmd.Parameters.AddWithValue("@ExpiryDate", t.ExpiryDate);
+                    cmd.Parameters.AddWithValue("@Volume", t.Volume);
+                    cmd.Parameters.AddWithValue("@ProductType", t.ProductType);
+                    cmd.Parameters.AddWithValue("@price", t.price);
+
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
         }
     }
     }
