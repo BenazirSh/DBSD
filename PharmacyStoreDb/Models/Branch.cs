@@ -11,7 +11,11 @@ namespace PharmacyStoreDb.Models
         public int BranchId { get; set; }
         public string BranchName { get; set; }
 
-        public string BranchAddress { get; set; }
+        public string BranchAddressCity { get; set; }
+
+        public string BranchAddressZip { get; set; }
+        public string BranchAddressStreet { get; set; }
+
         public Manager Manager { get; set; }
 
         public Cleaner Cleaner { get; set; }

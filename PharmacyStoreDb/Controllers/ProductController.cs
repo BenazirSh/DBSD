@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PharmacyStoreDb.DAL;
+using PharmacyStoreDb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,16 +30,19 @@ namespace PharmacyStoreDb.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Product product)
         {
+            var repo = new ProductRepository();
             try
             {
+                repo.Insert(product);
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }

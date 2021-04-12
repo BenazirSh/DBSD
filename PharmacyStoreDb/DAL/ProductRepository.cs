@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -32,7 +33,7 @@ namespace PharmacyStoreDb.DAL
                                     [ExpiryDate],
                                     [Volume],
                                     [ProductType], 
-                                    [price]";
+                                    [price] FROM product";
 
                     conn.Open();
                     using (var rdr = cmd.ExecuteReader())
@@ -70,11 +71,11 @@ namespace PharmacyStoreDb.DAL
 
         public void Insert(Product t)
         {
-            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            using (var conn = new SqlConnection(ConnectionStr))
             {
-                using (DbCommand cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Product(
+                    cmd.CommandText = @"INSERT INTO product(
                                     [ProductName], 
                                     [ReleaseForm], 
                                     [ProductionDate], 
@@ -92,22 +93,38 @@ namespace PharmacyStoreDb.DAL
 
                             )"; 
 
-                    DbParameter pName = cmd.CreateParameter();
+                    var pName = cmd.CreateParameter();
                     pName.DbType = System.Data.DbType.String;
                     pName.ParameterName = "@ProductName";
                     pName.Value = t.ProductName;
                     cmd.Parameters.Add(pName);
+                cmd.Parameters.AddWithValue("@ProductionDate", t.ProductionDate);
+                    cmd.Parameters.AddWithValue("@ProductionDate", t.ProductionDate);
+                    cmd.Parameters.AddWithValue("@StoreCondition", t.StoreCondition);
+                    cmd.Parameters.AddWithValue("@ReleaseForm", t.ReleaseForm);
+                    cmd.Parameters.AddWithValue("@Manufacturer", t.Manufacturer);
+                    cmd.Parameters.AddWithValue("@ExpiryDate", t.ExpiryDate);
+                    cmd.Parameters.AddWithValue("@Volume", t.Volume);
+                    cmd.Parameters.AddWithValue("@ProductType", t.ProductType);
+                    cmd.Parameters.AddWithValue("@price", t.price); 
+                 
 
-                    DbParameter pReleaseForm = cmd.CreateParameter();
-                    pReleaseForm.DbType = System.Data.DbType.String;
-                    pReleaseForm.ParameterName = "@ProductionDate";
-                    pReleaseForm.Value = t.ReleaseForm;
-                    cmd.Parameters.Add(pReleaseForm);
+                    DbParameter pProDate = cmd.CreateParameter();
+                    pProDate.DbType = System.Data.DbType.String;
+                    pProDate.ParameterName = "@ProductionDate";
+                    pProDate.Value = t.ProductionDate;
+                    cmd.Parameters.Add(pProDate);
 
                     DbParameter pStoreCond = cmd.CreateParameter();
                     pStoreCond.DbType = System.Data.DbType.String;
                     pStoreCond.ParameterName = "@StoreCondition";
                     pStoreCond.Value = t.StoreCondition;
+                    cmd.Parameters.Add(pStoreCond);
+
+                    DbParameter pReleaseForm = cmd.CreateParameter();
+                    pReleaseForm.DbType = System.Data.DbType.String;
+                    pReleaseForm.ParameterName = "@ReleaseForm";
+                    pReleaseForm.Value = t.ReleaseForm;
                     cmd.Parameters.Add(pStoreCond);
 
                     DbParameter pManufac = cmd.CreateParameter();
